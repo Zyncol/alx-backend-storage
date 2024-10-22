@@ -5,7 +5,7 @@ Task 8
 
 
 def list_all(mongo_collection):
-    ''
-    'Listin all documents in a collection.
+    '''
+    Listin all documents in a collection.
     '''
     return [doc for doc in mongo_collection.find()]
