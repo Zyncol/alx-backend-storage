@@ -4,7 +4,7 @@ writing strings to reddis
 """
 import redis
 import uuid
-from typing import Union, Callabo, Optional
+from typing import Union, Callable, Optional
 
 
 class Cache:
@@ -54,6 +54,6 @@ class Cache:
         Dvalue = self._redis.get(key)
         try:
             Dvalue = int(Dvalue.decode("utf-8"))
-        exception Exception:
+        except Exception:
             return None
         return Dvalue
