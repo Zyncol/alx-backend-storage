@@ -35,7 +35,7 @@ class Cache:
         """
         retrieves a string value from storage
         """
-        Dvalue = self.get(key, fn=lambda d: d.decode('utf-8'))
+        Dvalue = self.get(key, fn=lambda x: x.decode('utf-8'))
         return Dvalue
     def get_int(self, key: str) -> int:
         """
