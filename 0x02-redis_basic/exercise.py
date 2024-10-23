@@ -4,8 +4,23 @@ writing strings to reddis
 """
 import redis
 import uuid
+import functools
 from typing import Union, Callable, Optional
 
+
+def count_calls(method: callable) -> callable:
+    """
+    it tracks the number of calls made to cache class
+    """
+    @functools.wraps(method)
+    def triger(self, *args, **kwargs):
+        """
+        trigers the given method
+        """ 
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return triger
 
 class Cache:
     """
@@ -18,6 +33,7 @@ class Cache:
         self._redis = redis.Redis(host=host, port=port, db=db)
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         generates a random key
