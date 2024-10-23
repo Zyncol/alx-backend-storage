@@ -13,14 +13,15 @@ def count_calls(method: callable) -> callable:
     it tracks the number of calls made to cache class
     """
     @functools.wraps(method)
-    def triger(self, *args, **kwargs): #sourcery skip: avoid-builtin-shadow
+    def triger(self, *args, **kwargs):
         """
         trigers the given method
-        """ 
+        """
         key = method.__qualname__
         self._redis.incr(key)
         return method(self, *args, **kwargs)
     return triger
+
 
 class Cache:
     """
